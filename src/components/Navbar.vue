@@ -45,6 +45,7 @@ export default {
   background-color: #f3f6fd;
   display: flex;
   justify-content: space-between;
+  box-shadow: 5px 10px 15px rgba(0,0,0,0.14);
 }
 
 #navbar .register-btn {
