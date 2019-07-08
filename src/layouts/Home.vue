@@ -1,6 +1,8 @@
 <template>
-  <div class="hello">
-    <div class = "holder">
+  <main id="home">
+    <nav-bar></nav-bar>
+
+    <!-- <div class = "holder">
       <form @submit.prevent="addItem">
       <input type= "text" placeholder="Enter The items/Products You want us to purchase" v-model="item" v-validate= "'required|min:3|max:30'" name = "item">
       
@@ -10,21 +12,26 @@
       </form>
 
       <ul> 
-        <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+        <div name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
           <li v-for="(data, index) in items" :key='index'>
             {{data.item}}
             <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
             </li> 
-        </transition-group>
+        </div>
       </ul>
       <p> These are items that you want us to purchase </p>
-    </div>
-  </div>
+    </div> -->
+  </main>
 </template>
 
 <script>
+import NavBar from '@/components/Navbar.vue'
+
 export default {
   name: 'Home',
+  components: {
+    NavBar
+  },
   data() {
     return {
       item: '',
@@ -35,17 +42,18 @@ export default {
   },
   methods: {
     addItem(){
-      this.$validator.validateAll().then((result) =>{
-        if (result) {
-          this.items.push({item: this.item})
-          this.item = '';
-        } else {
-          console.log('Not valid');
-        }
-      })
-      },
-      remove(id){
-        this.items.splice(id,1);
+      this.$validator.validateAll()
+        .then((err, result) =>{
+          if (result) {
+            this.items.push({item: this.item})
+            this.item = '';
+          } else {
+            return err
+          }
+        })
+    },
+    remove(id){
+      this.items.splice(id,1);
     }
   }
 }
@@ -53,21 +61,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
-@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
-
-.holder {
-  background: #fff;
-}
-
-ul {
+#home ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-ul li {
+#home ul li {
   padding: 20px;
   font-size: 1.3em;
   background-color: #E0EDF4;
@@ -76,17 +77,17 @@ ul li {
   color: #3E5252;
 }
 
-p {
+#home p {
   text-align: center;
   padding: 30px 0;
   color: gray;
 }
 
-.container {
+#home .container {
   box-shadow: 0px 0px 40px lightgray;
 }
 
-input {
+#home input {
   width: calc(100% - 40px);
   border: 0;
   padding: 20px;
@@ -94,10 +95,10 @@ input {
   background-color: #323333;
   color: #687F7F
 }
-.alert-in-enter-active {
+#home .alert-in-enter-active {
   animation: bounce-in .5s;
 }
-.alert-in-leave-active {
+#home .alert-in-leave-active {
   animation: bounce-in .5s reverse;
 }
 
